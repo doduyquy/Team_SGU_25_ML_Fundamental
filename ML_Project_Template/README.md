@@ -1,7 +1,4 @@
-# Team_SGU_25_ML_Fundamental
-- GitHub nhóm môn Máy học cơ bản
-
-## [Structure](https://github.com/drivendataorg/cookiecutter-data-science) (Project - Challenge)
+# [Structure](https://github.com/drivendataorg/cookiecutter-data-science) (Project - Challenge)
 
 ```
 ML_Project_Template/
@@ -65,8 +62,4 @@ ML_Project_Template/
 └── README.md                <- Giới thiệu dự án, mô tả mục tiêu, hướng dẫn cài đặt & chạy. 
 ```
 
-### [Explanation](https://chatgpt.com/share/68ec8a8e-e474-800f-bce6-35612606fcf1)
-
-## Log file: track team's progress
-
-- [Log_Excel](https://1drv.ms/x/c/23885cf47e9d45b3/EfHOVX-aGZtHnOInN6DszVgB2Oj-L1UwPkWsVXpDB8sdYg?e=HQyArB&nav=MTVfezAwMDAwMDAwLTAwMDEtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMH0)
+## [Explanation](https://chatgpt.com/share/68ec8a8e-e474-800f-bce6-35612606fcf1)
