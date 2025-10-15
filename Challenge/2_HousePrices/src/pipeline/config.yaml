@@ -1,0 +1,20 @@
+config = {
+    "clean": {
+        "remove_dup": True,
+        "handle_na": True,
+        "balance": False
+    },
+    "preprocess": {
+        "method": "standardize"
+    },
+    "feature": {
+        "method": "rfe",
+        "params": {"k": 10},
+        "custom_func": lambda df: df["GrLivArea"] + df["GarageArea"],
+        "custom_name": "TotalArea"
+    },
+    "model": {
+        "params": {"n_estimators": 500, "learning_rate": 0.05},
+        "model_name": "LGB_HousePrice"
+    }
+}

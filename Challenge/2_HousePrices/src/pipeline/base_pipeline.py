@@ -7,6 +7,10 @@ class BasePipeline(ABC):
 
     @abstractmethod
     def clean_data(self, df):
+        """Sau khi load data, hàm clean_data này bao gồm các bước như:
+            1. Xử lý missing values
+            2. 
+        """
         pass
 
     @abstractmethod

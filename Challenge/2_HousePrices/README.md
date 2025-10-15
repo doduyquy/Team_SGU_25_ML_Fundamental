@@ -1,5 +1,18 @@
 # [Structure](https://github.com/drivendataorg/cookiecutter-data-science) (Project - Challenge)
 
+## Trong src/
+
+### Mỗi directory như một lib (OOP), gồm có: 
+
+1. eda
+2. preprocess (trong đó có: clean và feature) 
+3. evaluation 
+4. model 
+5. pipeline 
+6. ensemble
+
+&rarr; Sử dụng notebook/ để thực nghiệm và lưu kết quả, các file thực nghiệm vào model/ và reports/
+
 ```
 ML_Project_Template/
 │

@@ -1,3 +1,5 @@
+# python src/main.py --user quy --config config/config.yaml
+
 import argparse
 import yaml
 import pandas as pd
