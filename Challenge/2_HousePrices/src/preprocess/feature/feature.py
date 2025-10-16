@@ -82,14 +82,22 @@ class Feature:
     # --- 5. Feature Engineering ---
     def add_feature(self, func, new_name=None):
         """
-        func: hàm người dùng truyền vào, nhận df -> Series mới
+        func: có thể là hàm Python (callable) hoặc biểu thức dạng chuỗi (vd: "GrLivArea + GarageArea")
         new_name: tên cột mới
         """
-        new_feature = func(self.df)
-        if new_name is None:
-            new_name = func.__name__
-        self.df[new_name] = new_feature
-        print(f"🧠 Đã thêm đặc trưng mới: {new_name}")
+        if isinstance(func, str):
+            # Nếu người dùng truyền biểu thức, ta dùng pandas.eval
+            try:
+                self.df[new_name] = pd.eval(func, engine='python', local_dict=self.df)
+            except Exception as e:
+                raise ValueError(f"❌ Lỗi khi tính toán custom feature '{new_name}' với biểu thức: {func}\n{e}")
+        elif callable(func):
+            # Nếu người dùng truyền hàm, gọi trực tiếp
+            self.df[new_name] = func(self.df)
+        else:
+            raise TypeError(f"❌ 'func' phải là callable hoặc string expression, nhưng nhận {type(func)}")
+
+        print(f"✅ Đã thêm đặc trưng mới: {new_name}")
         return self.df
 
     # --- 6. Tổng hợp run ---

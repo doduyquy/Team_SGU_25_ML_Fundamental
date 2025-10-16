@@ -1,126 +1,148 @@
-# [Structure](https://github.com/drivendataorg/cookiecutter-data-science) (Project - Challenge)
+# 🏠 House Prices Prediction Project
 
-## Trong src/
+## [Structure](https://github.com/drivendataorg/cookiecutter-data-science) (Project - Challenge)
 
-### Mỗi directory như một lib (OOP), gồm có: 
+## 📌 Mục tiêu
 
-1. eda
-2. preprocess (trong đó có: clean và feature) 
-3. evaluation 
-4. model 
-5. pipeline 
-6. ensemble
+Xây dựng hệ thống pipeline tự động gồm các bước:
+1. **EDA** — Khám phá và phân tích dữ liệu.
+2. **Preprocess** — Làm sạch, chuẩn hóa, và chọn đặc trưng.
+3. **Modeling** — Huấn luyện mô hình (LightGBM, Lasso, v.v.)
+4. **Evaluation** — Đánh giá hiệu suất mô hình.
+5. **Tracking** — Theo dõi và log kết quả thực nghiệm.
+6. **Ensemble** — Kết hợp nhiều mô hình để cải thiện độ chính xác.
 
-&rarr; Sử dụng notebook/ để thực nghiệm và lưu kết quả, các file thực nghiệm vào model/ và reports/
+---
+
+## 📂 Cấu trúc thư mục
 
 ```
-ML_Project_Template/
+
+2_HousePrices/
 │
-├── data/                    <- Chứa dữ liệu qua từng giai đoạn xử lí, thử nghiệm  (.csv, .parquet, .pkl)
-│   ├── raw/                 <- Data original
-│   ├── interim/             <- Data sau bước clean
-│   ├── processed/           <- Data sau feature engineering (for model)
-│   └── submissions/         <- Nộp submission.csv
+├── config/
+│ └── global_config.yaml # Cấu hình toàn hệ thống (YAML)
 │
-├── reports/                 <- Chứa báo cáo, hình ảnh, submission, log kết quả (.md, .png, .csv, .pdf)
-│   ├── figures/             <- Biểu đồ, hình ảnh
-│   ├── experiments/         <- Báo cáo thực nghiệm, kết quả từng model
-│   └── results_summary.md   <- Tổng kết kết quả so sánh các mô hình
+├── data/
+│ ├── raw/ # Dữ liệu gốc tải từ Kaggle
+│ ├── interim/ # Dữ liệu sau bước xử lý tạm
+│ └── processed/ # Dữ liệu sau khi tiền xử lý hoàn chỉnh
 │
-├── models/                  <- Chứa mô hình đã huấn luyện, kết quả tuning, ensemble
-│   ├── trained/             <- File model (.pkl, .joblib)
-│   └── registry.json        <- Theo dõi model versions và metadata
+├── docs/ # Tài liệu mô tả, biểu đồ, note kỹ thuật
 │
-├── src/                     <- nơi chạy end-to-end project (load data → preprocess → train → evaluate → save model)
-│   ├── features/
-│   │   ├── feature_selection.py
-│   │   ├── feature_extraction.py
-│   │   └── feature_engineering.py
-│   ├── modeling/
-│   │   ├── train.py
-│   │   ├── evaluate.py
-│   │   ├── tune.py
-│   │   ├── ensemble.py
-│   │   └── predict.py
-│   ├── tracking/
-│   │   ├── experiment_tracker.py  <- MLflow hoặc wandb integration
-│   │   └── metrics_logger.py
-│   │
-│   └── pipeline.py
+├── models/ # Nơi lưu model đã train (.pkl, .joblib)
 │
-├── team/                 <- Dành cho làm việc nhóm
-│   ├── Readme.md         <- Danh sách thành viên
-│   └── progress_logs/    <- Nhật ký cá nhân, tiến độ từng thành viên
+├── notebooks/
+│ ├── global_eda.ipynb # Notebook EDA tổng quan
+│ └── experiments/ # Mỗi thành viên có notebook riêng (phát triển thử nghiệm)
 │
-├── train.py                 <- file entrypoint chính (CLI)
+├── reports/
+│ ├── experiments/ # Kết quả thử nghiệm (metrics, logs)
+│ ├── figures/ # Hình ảnh biểu đồ kết quả
+│ └── results_summary.md # Tổng hợp kết quả model
 │
-├── config.yaml               # cấu hình pipeline (đường dẫn, tham số)
+├── src/
+│ ├── eda/
+│ │ └── eda.py # Class EDA (biểu đồ, phân tích thống kê)
+│ │
+│ ├── preprocess/
+│ │ ├── Clean.py # Xử lý missing, duplicate, imbalance
+│ │ ├── Preprocess.py # Chuẩn hóa, scale, normalize, binarize
+│ │ └── Feature.py # Chọn và tạo đặc trưng
+│ │
+│ ├── model/
+│ │ ├── LightGBM.py # Model LightGBM
+│ │ └── Lasso.py # Model Lasso Regression
+│ │
+│ ├── evaluation/
+│ │ └── Evaluation.py # Đánh giá model (MAE, RMSE, R², Confusion matrix, v.v.)
+│ │
+│ ├── ensemble/
+│ │ └── Ensemble.py # Voting, Stacking, Bagging, Blending
+│ │
+│ ├── pipeline/
+│ │ └── Pipeline.py # Luồng Clean → Preprocess → Feature → Model → Evaluate
+│ │
+│ ├── tracking/
+│ │ └── tracking.py # Ghi log, metrics, lưu file kết quả
+│ │
+│ ├── utils/
+│ │ └── data_loader.py # Load dữ liệu, tiện ích xử lý file
+│ │
+│ └── init.py # Đánh dấu package Python
 │
-├── docs/                    <- Tài liệu chi tiết, hướng dẫn triển khai, API, pipeline, v.v.
+├── tests/ # Unit tests cho module
 │
-├── references               <- Data dictionaries, manuals, and all other explanatory materials.
+├── SUBMIT-summarize_report/ # Tổng hợp kết quả cuối cùng để nộp Kaggle
 │
-└── README.md                <- Giới thiệu dự án, mô tả mục tiêu, hướng dẫn cài đặt & chạy. 
+├── main.py # Script chạy chính toàn pipeline
+│
+└── README.md # File hướng dẫn (bạn đang đọc)
+
 ```
+
+## Kết quả sẽ được lưu:
+
+- Model: models/<model_name>.pkl
+- Báo cáo: reports/experiments/<experiment_name>/metrics.json
+- Hình ảnh: reports/figures/
+
+## Run: (console)
+
+`python main.py --user quy --config config/config_basic-test_quy.yaml`
+
+
 
 ## Code flow
 
-          ┌──────────────────────────┐
-          │        train.py          │
-          │ (entrypoint - CLI call)  │
-          └────────────┬─────────────┘
-                       │ đọc config.yaml
-                       ▼
-           ┌────────────────────────┐
-           │     src/pipeline.py     │
-           │ (chạy end-to-end flow) │
-           └────────────┬───────────┘
-                        │
-       ┌────────────────┼──────────────────┐
-       ▼                ▼                  ▼
-┌────────────┐   ┌─────────────┐    ┌──────────────┐
-│ load_data  │   │ preprocess  │    │ build_features│
-│ (raw → df) │   │ cleaning +  │    │ create/encode │
-│             │   │ scaling     │    │ new features  │
-└──────┬──────┘   └──────┬──────┘    └──────────────┘
-       │                 │
-       ▼                 ▼
-  ┌──────────────────────────────────┐
-  │     X_train, y_train, X_test     │
-  └──────────────────────────────────┘
-                       │
-                       ▼
-           ┌────────────────────────┐
-           │    train_model()       │
-           │ (fit model, save pkl)  │
-           └────────────┬───────────┘
-                        │
-                        ▼
-           ┌────────────────────────┐
-           │   evaluate_model()     │
-           │ (MAE, RMSE, R², etc.)  │
-           └────────────┬───────────┘
-                        │
-                        ▼
-           ┌────────────────────────┐
-           │  log_experiment()      │
-           │ (wandb / local logs)   │
-           └────────────┬───────────┘
-                        ▼
-           ┌────────────────────────┐
-           │ models/trained/*.pkl   │
-           │ reports/metrics.json   │
-           │ wandb dashboard        │
-           └────────────────────────┘
+## ⚙️ Code Flow
 
-## [Explanation](https://chatgpt.com/share/68ec8a8e-e474-800f-bce6-35612606fcf1)
+```text
+                        ┌──────────────────────────────┐
+                        │  main.py / train.py          │
+                        │  (entrypoint - CLI call)     │
+                        └────────────┬─────────────────┘
+                                     │
+                                     ▼
+                        ┌──────────────────────────────┐
+                        │  Đọc file config.yaml        │
+                        │  (setup toàn bộ pipeline)    │
+                        └────────────┬─────────────────┘
+                                     │
+                                     ▼
+                        ┌──────────────────────────────┐
+                        │  src/pipeline/               │
+                        │  (chạy end-to-end pipeline)  │
+                        └────────────┬─────────────────┘
+                                     │
+       ┌─────────────────────────────┼──────────────────────────────┐
+       ▼                             ▼                              ▼
+┌───────────────┐          ┌──────────────────────┐        ┌────────────────────────┐
+│ load_data()   │          │ preprocess/cleaning │        │ build_features()        │
+│ (raw → df)    │          │ - xử lý missing     │        │ - tạo đặc trưng mới     │
+│ - đọc train   │          │ - remove duplicate  │        │ - encode categorical     │
+│ - đọc test    │          │ - scale/normalize   │        │ - feature selection (RFE)│
+└───────────────┘          └──────────────────────┘        └────────────────────────┘
+       │                             │                              │
+       └─────────────────────────────┼──────────────────────────────┘
+                                     ▼
+                         ┌────────────────────────────┐
+                         │   model training / tuning  │
+                         │   (LightGBM, Lasso, ...)   │
+                         └────────────┬───────────────┘
+                                      │
+                                      ▼
+                         ┌────────────────────────────┐
+                         │     evaluation & report    │
+                         │  - metrics (MAE, RMSE, R²) │
+                         │  - feature importance      │
+                         └────────────┬───────────────┘
+                                      │
+                                      ▼
+                         ┌────────────────────────────┐
+                         │ tracking & submission      │
+                         │ - log kết quả              │
+                         │ - lưu submission.csv       │
+                         └────────────────────────────┘
 
 
-├── notebooks/               <- nơi thực nghiệm features, model,... test, debugs
-│   ├── 0.0-overview.ipynb
-│   ├── 1.0-eda.ipynb
-│   ├── 2.0-data_cleaning.ipynb
-│   ├── 3.0-feature_engineering.ipynb
-│   ├── 4.0-model_baseline_<name>.ipynb
-│   └── 5.0-final_model.ipynb
-│

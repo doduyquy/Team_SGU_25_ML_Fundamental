@@ -1,9 +1,9 @@
 import pandas as pd
-from preprocess.Clean import Clean
-from preprocess.Preprocess import Preprocess
-from preprocess.Feature import Feature
-from model.LightGBM import ModelLightGBM
-from evaluation.Evaluation import Evaluation
+from src.preprocess.clean.clean import Clean
+from src.preprocess.preprocess.preprocess import Preprocess
+from src.preprocess.feature.feature import Feature
+from src.model.LightGBM import ModelLightGBM
+from src.evaluation.evaluation import Evaluation
 
 class Pipeline:
     def __init__(self, df, target_col, task="auto", model_class=ModelLightGBM, config=None):
@@ -71,6 +71,9 @@ class Pipeline:
     # === 4. Train model ===
     def step_train_model(self):
         cfg = self.config.get("model", {})
+        # Check for target column
+        # if self.target_col not in self.df.columns:
+            # raise ValueError(f"❌ Missing target column '{self.target_col}' before model training.")
         model = self.model_class(
             params=cfg.get("params"),
             param_grid=cfg.get("param_grid"),
