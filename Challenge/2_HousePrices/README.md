@@ -87,15 +87,13 @@ Xây dựng hệ thống pipeline tự động gồm các bước:
 - Báo cáo: reports/experiments/<experiment_name>/metrics.json
 - Hình ảnh: reports/figures/
 
-## Run: (console)
+## ⚙️ Run: (console)
 
-`python main.py --user quy --config config/config_basic-test_quy.yaml`
+- Example: 
+`python main.py --config config/config_basic-test_quy.yaml`
 
 
-
-## Code flow
-
-## ⚙️ Code Flow
+## 🔗 Code Flow
 
 ```text
                         ┌──────────────────────────────┐
