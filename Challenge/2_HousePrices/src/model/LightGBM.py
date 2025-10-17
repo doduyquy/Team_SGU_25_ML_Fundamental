@@ -66,4 +66,5 @@ class ModelLightGBM:
         os.makedirs(folder, exist_ok=True)
         path = os.path.join(folder, f"{self.model_name}_best.pkl")
         joblib.dump(self.model, path)
+        print(f"✅ Model saved to: {path}")
         return path
