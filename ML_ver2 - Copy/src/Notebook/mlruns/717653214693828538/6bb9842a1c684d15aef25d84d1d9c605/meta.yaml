@@ -1,0 +1,14 @@
+artifact_uri: file:///d:/ML/src/Notebook/mlruns/717653214693828538/6bb9842a1c684d15aef25d84d1d9c605/artifacts
+end_time: 1760532865845
+entry_point_name: ''
+experiment_id: '717653214693828538'
+lifecycle_stage: active
+run_id: 6bb9842a1c684d15aef25d84d1d9c605
+run_name: run_20251015_195425
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1760532865642
+status: 3
+tags: []
+user_id: HP
