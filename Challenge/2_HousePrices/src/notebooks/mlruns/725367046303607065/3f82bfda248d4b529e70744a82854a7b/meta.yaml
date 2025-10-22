@@ -1,0 +1,14 @@
+artifact_uri: file:///d:/Kaggle/Team_SGU_25_ML_Fundamental/Challenge/2_HousePrices/src/notebooks/mlruns/725367046303607065/3f82bfda248d4b529e70744a82854a7b/artifacts
+end_time: 1761116269907
+entry_point_name: ''
+experiment_id: '725367046303607065'
+lifecycle_stage: active
+run_id: 3f82bfda248d4b529e70744a82854a7b
+run_name: LGBM_Regression_135629
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761116189229
+status: 4
+tags: []
+user_id: HP

@@ -2,6 +2,7 @@ import os
 import joblib
 import pandas as pd
 from datetime import datetime
+import matplotlib.pyplot as plt # Import Matplotlib cho ví dụ và hỗ trợ kiểu dữ liệu figure
 
 # MLflow & WandB
 import mlflow
@@ -24,7 +25,7 @@ class Tracking:
 
         # Thư mục local
         self.model_dir = "experiments/models"
-        self.data_dir = "data/processed"
+        self.data_dir = "experiments/data/processed"
         os.makedirs(self.model_dir, exist_ok=True)
         os.makedirs(self.data_dir, exist_ok=True)
 
@@ -34,7 +35,7 @@ class Tracking:
             mlflow.set_experiment(self.project)
             self.active = mlflow.start_run(run_name=self.run_name)
         elif self.backend == "wandb":
-            self.active = wandb.init(project=self.project, name=self.run_name)
+            self.active = wandb.init(project=self.project, name=self.run_name, reinit=True)
         else:
             raise ValueError("Chỉ hỗ trợ backend='mlflow' hoặc 'wandb'")
         return self
@@ -43,7 +44,8 @@ class Tracking:
         if self.backend == "mlflow":
             mlflow.end_run()
         elif self.backend == "wandb":
-            wandb.finish()
+            if self.active:
+                self.active.finish()
 
     # ===== LOG PARAMS =====
     def log_params(self, params: dict):
@@ -64,6 +66,22 @@ class Tracking:
         elif self.backend == "wandb":
             wandb.log(flat_metrics)
 
+    # ===== LOG PLOT (NEW) =====
+    def log_plot(self, fig: plt.Figure, plot_name: str):
+        """
+        Log một biểu đồ (ví dụ: Matplotlib Figure) lên nền tảng tracking.
+        fig: Đối tượng Matplotlib Figure.
+        plot_name: Tên của biểu đồ/artifact.
+        """
+        if self.backend == "mlflow":
+            # MLflow sử dụng log_figure để lưu figure Matplotlib dưới dạng artifact (thường là .png)
+            mlflow.log_figure(fig, artifact_file=f"plots/{plot_name}.png")
+            print(f"✅ Đã log biểu đồ '{plot_name}' lên MLflow tại 'plots/{plot_name}.png'.")
+        elif self.backend == "wandb":
+            # WandB có thể log trực tiếp Matplotlib Figure object
+            wandb.log({plot_name: fig})
+            print(f"✅ Đã log biểu đồ '{plot_name}' lên WandB.")
+
     # ===== SAVE MODEL =====
     def save_model(self, model=None, filename=None):
         model = model or self.model
@@ -71,8 +89,10 @@ class Tracking:
             print("⚠️ Không có model để lưu.")
             return None
 
-        # 1. Lưu local
-        filename = filename or f"{self.run_name}_model.pkl"
+        # 1. Lưu local: Cập nhật để bao gồm cả run_name và timestamp
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        default_filename = f"{self.run_name}_{timestamp}_model.pkl" # Tên file mới
+        filename = filename or default_filename
         local_path = os.path.join(self.model_dir, filename)
         joblib.dump(model, local_path)
         print(f"✅ Mô hình đã lưu local: {local_path}")
@@ -91,7 +111,10 @@ class Tracking:
 
     # ===== SAVE DATAFRAME =====
     def save_data(self, df: pd.DataFrame, filename=None):
-        filename = filename or f"{self.run_name}_data.csv"
+        # Cập nhật để bao gồm cả run_name và timestamp
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        default_filename = f"{self.run_name}_{timestamp}_data.csv" # Tên file mới
+        filename = filename or default_filename
         file_path = os.path.join(self.data_dir, filename)
         df.to_csv(file_path, index=False)
         print(f"✅ Dữ liệu đã lưu local: {file_path}")

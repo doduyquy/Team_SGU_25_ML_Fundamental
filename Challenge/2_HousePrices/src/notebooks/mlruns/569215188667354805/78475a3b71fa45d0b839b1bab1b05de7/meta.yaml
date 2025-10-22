@@ -1,0 +1,14 @@
+artifact_uri: file:///d:/Kaggle/Team_SGU_25_ML_Fundamental/Challenge/2_HousePrices/src/notebooks/mlruns/569215188667354805/78475a3b71fa45d0b839b1bab1b05de7/artifacts
+end_time: 1761136310156
+entry_point_name: ''
+experiment_id: '569215188667354805'
+lifecycle_stage: active
+run_id: 78475a3b71fa45d0b839b1bab1b05de7
+run_name: LightGBM_classification_best_193113
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761136273582
+status: 3
+tags: []
+user_id: HP
