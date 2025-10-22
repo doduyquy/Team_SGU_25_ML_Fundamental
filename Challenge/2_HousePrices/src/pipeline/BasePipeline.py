@@ -17,4 +17,4 @@ class BasePipeline:
             tracker.log_params(model.best_params or model.params)
             tracker.log_metrics(model.metrics)
             tracker.save_model(model)
-            tracker.save_data(df.head(100))  # ví dụ: lưu subset dữ liệu
+            tracker.save_data(df.head(100))

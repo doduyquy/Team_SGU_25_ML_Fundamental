@@ -1,0 +1,22 @@
+artifact_path: file:///d:/Kaggle/Team_SGU_25_ML_Fundamental/Challenge/2_HousePrices/src/notebooks/mlruns/569215188667354805/models/m-9e1989c075704708997dd29ba640b32d/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.3
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.6.1
+mlflow_version: 3.1.1
+model_id: m-9e1989c075704708997dd29ba640b32d
+model_size_bytes: 239234
+model_uuid: m-9e1989c075704708997dd29ba640b32d
+prompts: null
+run_id: 0f67f3b6d65c4c04ba5efaa6ba5dfb80
+utc_time_created: '2025-10-22 13:13:28.179332'
