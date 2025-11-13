@@ -1,0 +1,14 @@
+artifact_uri: file:///d:/Kaggle/Team_SGU_25_ML_Fundamental/Challenge/2_HousePrices/src/Work/Phat/mlruns/407838080147132322/6a81942177fd408ea2b793d651b02c6d/artifacts
+end_time: 1761917028382
+entry_point_name: ''
+experiment_id: '407838080147132322'
+lifecycle_stage: active
+run_id: 6a81942177fd408ea2b793d651b02c6d
+run_name: lasso_regression_best_202348
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761917028302
+status: 3
+tags: []
+user_id: HP

@@ -1,0 +1,10 @@
+artifact_location: file:///d:/Kaggle/Team_SGU_25_ML_Fundamental/Challenge/2_HousePrices/src/Work/Phat/mlruns/907628188726335523/models/m-ac8282fd625245fab130577471808948/artifacts
+creation_timestamp: 1761659228526
+experiment_id: '907628188726335523'
+last_updated_timestamp: 1761659234615
+model_id: m-ac8282fd625245fab130577471808948
+model_type: null
+name: model
+source_run_id: 15b7bf9cbd1b4da3a5d41da1f9588cd2
+status: 2
+status_message: null
