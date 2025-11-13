@@ -1,0 +1,15 @@
+mlflow==3.1.1
+cffi==2.0.0
+cloudpickle==3.1.1
+defusedxml==0.7.1
+houseprices==0.1
+matplotlib==3.10.1
+ml==0.1
+numpy==1.26.4
+optuna==4.5.0
+pandas==2.3.0
+psutil==7.0.0
+scikit-learn==1.6.1
+scipy==1.11.4
+seaborn==0.13.2
+xgboost==3.0.2

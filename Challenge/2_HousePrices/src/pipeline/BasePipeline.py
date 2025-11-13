@@ -5,7 +5,7 @@ class BasePipeline:
         self.model_class = model_class
         self.experiment_name = experiment_name
 
-    def run(self, df, target_col, task, model_name, backend="mlflow"):
+    def run(self, df, target_col,y, task, model_name, backend="mlflow"):
         run_name = f"{model_name}_{task}_best_{datetime.now().strftime('%H%M%S')}"
         print(f"\n🚀 Start run: {run_name}")
 

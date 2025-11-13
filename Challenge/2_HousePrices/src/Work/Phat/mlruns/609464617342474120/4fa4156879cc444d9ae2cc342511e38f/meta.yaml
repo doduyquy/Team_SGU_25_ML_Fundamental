@@ -1,0 +1,14 @@
+artifact_uri: file:///d:/Kaggle/Team_SGU_25_ML_Fundamental/Challenge/2_HousePrices/src/Work/Phat/mlruns/609464617342474120/4fa4156879cc444d9ae2cc342511e38f/artifacts
+end_time: 1761661023023
+entry_point_name: ''
+experiment_id: '609464617342474120'
+lifecycle_stage: active
+run_id: 4fa4156879cc444d9ae2cc342511e38f
+run_name: RandomForest_regression_best_211641
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761661001850
+status: 3
+tags: []
+user_id: HP

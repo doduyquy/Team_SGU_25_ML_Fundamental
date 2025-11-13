@@ -1,0 +1,14 @@
+artifact_uri: file:///d:/Kaggle/Team_SGU_25_ML_Fundamental/Challenge/2_HousePrices/src/Work/Phat/mlruns/609464617342474120/b3c0d7c45003469e903c35e2c8cf408b/artifacts
+end_time: 1761660685381
+entry_point_name: ''
+experiment_id: '609464617342474120'
+lifecycle_stage: active
+run_id: b3c0d7c45003469e903c35e2c8cf408b
+run_name: CatBoost_regression_best_211054
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761660654323
+status: 3
+tags: []
+user_id: HP

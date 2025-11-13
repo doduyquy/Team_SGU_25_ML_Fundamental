@@ -295,7 +295,6 @@ class EDA:
         fig.show()
         
         return outliers
-    
     def full_report(self, interactive=True):
         """Tạo báo cáo EDA đầy đủ và đẹp mắt"""
         self._print_header("📊 BÁO CÁO EDA ĐẦY ĐỦ", level=1)
