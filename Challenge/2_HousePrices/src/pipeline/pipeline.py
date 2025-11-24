@@ -26,22 +26,35 @@ class Pipeline:
     # === 1. Clean ===
     def step_clean(self):
         cfg = self.config.get("clean", {})
+        
+        # Khởi tạo Clean class
         cleaner = Clean(
             self.df,
             target_col=self.target_col,
             balance_method=cfg.get("balance_method"),
         )
+        
+        # Chạy cleaning với config
         self.df = cleaner.run(
             remove_dup=cfg.get("remove_dup", True),
             handle_na=cfg.get("handle_na", True),
-            balance=cfg.get("balance", False)
+            balance=cfg.get("balance", False),
+            missing_strategy=cfg.get("missing_strategy", "house_prices"),
+            outlier_method=cfg.get("outlier_method", "house_prices")
         )
+        
         print("✅ Hoàn tất bước Clean.")
         return self.df
 
     # === 2. Preprocess ===
     def step_preprocess(self):
         cfg = self.config.get("preprocess", {})
+        
+        # Skip preprocessing nếu được yêu cầu
+        if cfg.get("skip", False):
+            print("⏭️ Skip preprocessing step.")
+            return self.df
+        
         pre = Preprocess(self.df)
         self.df = pre.run(
             method=cfg.get("method", "standardize"),
@@ -63,17 +76,17 @@ class Pipeline:
         if cfg.get("custom_func"):
             self.df = feat.add_feature(
                 func=cfg["custom_func"],
-                new_name=cfg.get("custom_name")
+                new_name=cfg.get("custom_name", "custom_feature")
             )
+        
         print("✅ Hoàn tất bước Feature.")
         return self.df
 
     # === 4. Train model ===
     def step_train_model(self):
         cfg = self.config.get("model", {})
-        # Check for target column
-        # if self.target_col not in self.df.columns:
-            # raise ValueError(f"❌ Missing target column '{self.target_col}' before model training.")
+        
+        # Khởi tạo model
         model = self.model_class(
             params=cfg.get("params"),
             param_grid=cfg.get("param_grid"),
@@ -81,8 +94,11 @@ class Pipeline:
             test_size=cfg.get("test_size", 0.2),
             model_name=cfg.get("model_name", "LightGBM")
         )
+        
+        # Train model
         self.model = model.train(self.df, target_col=self.target_col)
         self.metrics = model.metrics
+        
         print("✅ Train model hoàn tất.")
         return self.model, self.metrics
 
@@ -96,11 +112,30 @@ class Pipeline:
         return self.metrics
 
     # === 6. Run toàn bộ pipeline ===
-    def run(self):
+    def run(self, steps=None):
+        """
+        Run toàn bộ pipeline hoặc các steps được chỉ định
+        
+        Args:
+            steps: list of steps to run, e.g. ['clean', 'preprocess', 'feature', 'train']
+                   Nếu None, chạy tất cả
+        """
         print("\n🚀 Bắt đầu pipeline ML...\n")
-        self.step_clean()
-        self.step_preprocess()
-        self.step_feature()
-        self.step_train_model()
+        
+        all_steps = ['clean', 'preprocess', 'feature', 'train']
+        
+        if steps is None:
+            steps = all_steps
+        
+        # Run từng step
+        if 'clean' in steps:
+            self.step_clean()
+        if 'preprocess' in steps:
+            self.step_preprocess()
+        if 'feature' in steps:
+            self.step_feature()
+        if 'train' in steps:
+            self.step_train_model()
+        
         print("\n🎯 Pipeline hoàn tất!\n")
         return self.model, self.metrics

@@ -101,14 +101,24 @@ class Feature:
         return self.df
 
     # --- 6. Tổng hợp run ---
-    def run(self, method="chi2", **kwargs):
+    def run(self, method=None, **kwargs):
+        """
+        method: chi2 | rfe | pca | importance | None (skip feature selection)
+        
+        Nếu method=None, chỉ thêm custom feature (nếu có) và return df
+        """
         if method == "chi2":
-            return self.univariate_selection(**kwargs)
+            self.df = self.univariate_selection(**kwargs)
         elif method == "rfe":
-            return self.rfe_selection(**kwargs)
+            self.df = self.rfe_selection(**kwargs)
         elif method == "pca":
-            return self.pca_extraction(**kwargs)
+            self.df = self.pca_extraction(**kwargs)
         elif method == "importance":
-            return self.feature_importance(**kwargs)
+            self.feature_importance(**kwargs)
+        elif method is None:
+            # Không làm gì, chỉ return df
+            pass
         else:
-            raise ValueError("Phương pháp feature không hợp lệ.")
+            raise ValueError(f"Phương pháp feature không hợp lệ: {method}")
+        
+        return self.df
